@@ -1,7 +1,7 @@
-##Wayback PDF Diff Prototype
+## Wayback PDF Diff Prototype
 Prototype implementation of a backend PDF diff engine designed for the Wayback Machine.
 This project explores how differences between two versions of a PDF document can be detected and represented in a structured format. The goal is to eventually support PDF comparison in the Wayback Machine, similar to how HTML page diffs are currently supported.
-##Motivation
+## Motivation
 The Wayback Machine currently supports visual diffing of archived HTML pages.
 However, many archived resources are PDF documents, such as:
 Research papers
@@ -14,7 +14,7 @@ Journalists
 Historians
 Policy analysts
 This prototype demonstrates how a backend system could generate structured diff output for two PDF documents.
-##How It Works
+## How It Works
 The prototype follows a simple pipeline:
 
 PDF Version A
@@ -30,7 +30,7 @@ Line Comparison (difflib)
       │
       ▼
 Structured JSON Diff Output
-##Steps:
+## Steps:
 Extract text from each page of both PDFs using PyMuPDF
 Normalize extracted text
 Compare the two versions using Python's difflib
@@ -59,7 +59,7 @@ pdfdiff/diff_engine.py
 Performs comparison between two extracted texts and generates structured differences.
 run_test.py
 Example script demonstrating how to use the package.
-##Installation
+## Installation
 Clone the repository:
 
 git clone https://github.com/welcomemeet/wayback-pdf-diff-prototype.git
@@ -68,7 +68,7 @@ Install the package:
 
 
 pip install .
-##Usage Example
+## Usage Example
 Example Python usage:
 Python
 
@@ -95,7 +95,7 @@ Json
   }
 ]
 This structured JSON output can later be integrated with existing Wayback diff visualization tools.
-##Dependencies
+## Dependencies
 Python 3.10+
 PyMuPDF
 Python standard library (difflib, json)
@@ -105,7 +105,7 @@ The final goal is to build a system that:
 compares two archived PDF captures
 generates structured diff output
 integrates with existing Wayback diff infrastructure
-##Future improvements may include:
+## Future improvements may include:
 better text normalization
 paragraph-level comparison
 page-level diff visualization
