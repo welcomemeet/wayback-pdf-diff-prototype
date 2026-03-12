@@ -1,0 +1,10 @@
+pyproject.toml
+setup.py
+pdfdiff/__init__.py
+pdfdiff/diff_engine.py
+pdfdiff/extractor.py
+pdfdiff.egg-info/PKG-INFO
+pdfdiff.egg-info/SOURCES.txt
+pdfdiff.egg-info/dependency_links.txt
+pdfdiff.egg-info/requires.txt
+pdfdiff.egg-info/top_level.txt

@@ -1,0 +1,8 @@
+Metadata-Version: 2.4
+Name: pdfdiff
+Version: 0.1.0
+Summary: PDF diff engine prototype for archived documents
+Author: Meet Darji
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: pymupdf
