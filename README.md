@@ -1,169 +1,89 @@
-Wayback PDF Diff Prototype
+# Wayback PDF Diff Prototype
 
-This project explores how differences between two versions of a PDF document can be detected and visualized.
-It is inspired by the Wayback Machine "Wayback Changes" system, which currently supports comparison of archived HTML pages.
+Prototype implementation of a backend PDF diff engine designed for the Wayback Machine.
 
-The goal of this prototype is to demonstrate how PDF documents could also be compared, enabling users to identify changes between archived PDF captures.
+This project explores how differences between two versions of a PDF document can be detected and represented in a structured format. The goal is to eventually support PDF comparison in the Wayback Machine similar to how HTML page diffs are currently supported.
 
-Motivation
+---
 
-The Wayback Machine archives billions of webpages and documents. While it provides tools to compare changes in HTML pages, many archived resources exist as PDF documents, such as:
+## Motivation
 
-government reports
+The Wayback Machine currently supports visual diffing of archived HTML pages.
 
-research papers
+However, many archived resources are PDF documents such as:
 
-policy documents
+- research papers
+- policy documents
+- government reports
+- technical documentation
 
-institutional publications
+Detecting changes between different archived versions of these PDFs would be extremely useful for researchers, journalists, and historians.
 
-Being able to detect changes between different archived versions of these documents would help researchers, journalists, and historians track document updates over time.
+This prototype demonstrates a simple backend system that extracts text from two PDFs and detects differences between them.
 
-This prototype demonstrates a simple approach for PDF diff detection and visualization.
+---
 
-Prototype Pipeline
-PDF Version A
-      ↓
-Text Extraction (PyMuPDF)
-      ↓
-Diff Detection (Python difflib)
-      ↓
-Structured Output (JSON)
-      ↓
-HTML Diff Viewer
+## How It Works
 
-The system extracts text from two PDFs, detects differences, generates structured change data, and visualizes the changes through a browser-based viewer.
+The prototype follows a simple pipeline:
+PDF Version A │ ▼ Text Extraction (PyMuPDF) │ ▼ Line Comparison (difflib) │ ▼ Structured JSON Diff Output
+Copy code
 
-Project Structure
-wayback-pdf-diff-prototype
-│
-├── BACKEND
-│   └── pdf_diff_engine.py
-│
-├── samples
-│   ├── capture1.pdf
-│   └── capture2.pdf
-│
-├── viewer
-│   └── diff_viewer.html
-│
-├── backend
-│   └── diff.json
-│
-├── requirements.txt
-└── README.md
-Folder Description
+Steps:
 
-BACKEND
+1. Extract text from each page of the PDFs using **PyMuPDF**
+2. Normalize the extracted text into lines
+3. Compare the two versions using Python's **difflib**
+4. Generate structured JSON output showing additions and removals
 
-Contains the Python script responsible for:
+---
 
-extracting text from PDFs
+## Project Structure
+wayback-pdf-diff-prototype │ ├── pdfdiff │   ├── init.py │   ├── extractor.py │   └── diff_engine.py │ ├── samples │   ├── capture1.pdf │   └── capture2.pdf │ ├── run_test.py └── README.md
+Copy code
 
-detecting differences between documents
+---
 
-generating structured diff output
+## Example Output
 
-samples
+Running the prototype produces structured JSON output:
 
-Example PDF files used to demonstrate the comparison.
-
-viewer
-
-A simple HTML interface that reads the generated JSON diff file and displays changes visually.
-
-backend/diff.json
-
-Stores the structured diff results produced by the Python script.
-
-Installation
-
-Clone the repository:
-
-git clone https://github.com/welcomemeet/wayback-pdf-diff-prototype.git
-cd wayback-pdf-diff-prototype
-
-Install required dependencies:
-
-pip install -r requirements.txt
+```json
+[
+  {
+    "type": "removed",
+    "text": "The Wayback Machine archives websites and documents."
+  },
+  {
+    "type": "added",
+    "text": "The Wayback Machine archives websites."
+  }
+]
+This output can later be integrated with existing Wayback diff visualization tools.
 Running the Prototype
-Step 1 — Generate the diff
+Install dependency
 
-Run the Python script:
+pip install pymupdf
+Run the test script
 
-python BACKEND/pdf_diff_engine.py
-
-This will generate a file:
-
-backend/diff.json
-
-containing detected differences between the two PDFs.
-
-Step 2 — Start a local server
-
-Run:
-
-python -m http.server 8000
-Step 3 — Open the viewer
-
-Open the following URL in your browser:
-
-http://localhost:8000/viewer/diff_viewer.html
-
-You will see highlighted differences between the two PDF documents.
-
-Example Diff Output
-
-Example detected differences:
-
-Page 1
-
-REMOVED:
-Internet Archive preserves digital knowledge.
-
-ADDED:
-Internet Archive preserves global digital knowledge.
-
-The viewer highlights:
-
-Removed text
-
-Added text
-
-to help users quickly identify document changes.
-
-Technologies Used
-
-Python
-
-PyMuPDF
-
-difflib
-
-HTML / JavaScript
-
-Future Improvements
-
-Possible improvements include:
-
-multi-page PDF comparison
-
-improved semantic text comparison
-
-side-by-side diff visualization
-
-support for scanned PDFs using OCR
-
-integration with existing Wayback diff infrastructure
-
-Context
-
-This prototype was developed while preparing a proposal for the Google Summer of Code project:
-
-Wayback PDF Changes — Internet Archive
-
-The idea is to extend the Wayback Machine diff capabilities so that PDF documents can also be compared across archived versions.
-
-License
-
-This project is licensed under the MIT License.
+python run_test.py
+The script compares the two PDFs in the samples folder and prints the detected differences.
+Prototype Goal
+This prototype focuses on the backend diff engine only.
+The final goal is to build a system that:
+compares two archived PDF captures
+produces structured diff output
+integrates with the existing Wayback diff infrastructure
+Next Steps
+Future improvements include:
+matching the JSON format used by web-monitoring-diff
+improving text normalization
+supporting multi-page document comparison
+packaging the project as a pip-installable Python package
+integrating with Wayback diff tools
+Repository
+Prototype repository:
+https://github.com/welcomemeet/wayback-pdf-diff-prototype⁠�
+Author
+Meet Darji
+GSoC 2026 Applicant – Internet Archive
